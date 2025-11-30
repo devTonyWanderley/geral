@@ -3,6 +3,9 @@
  *      @brief      Iniciar controle de versão
  *      @version    local da chave: C:\Users\micro\.ssh
  *                  nome da chave:  id_rsa
+ *      Segmento    30/11/25    17:40
+ *          ->anexar pasta e arquivos de classe ok;
+ *          ->revisar classe 'Quadro'
  */
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H

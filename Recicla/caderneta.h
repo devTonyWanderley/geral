@@ -1,0 +1,26 @@
+/**
+ * @date    Início 29/11/25 15:28
+ * @bug     Posteriormente, calibrar o temanho da linha fixa ou parametrizar os dados
+ */
+#ifndef CADERNETA_H
+#define CADERNETA_H
+
+#define DIR_ "C:\\Tony\\Soft\\cpp\\InstLocal\\"
+
+#include "edpontos.h"
+
+#include <QString>
+#include <QFile>
+#include <QFileDialog>
+
+//#include <QDebug>
+
+bool LerArquivo(QString dir, QString filtro, QByteArray &qba);
+void SeparaTexto(Lista<QByteArray>&partes, QByteArray &texto, char sep);
+void SeparaTexto(Lista<QByteArray>&partes, QByteArray &texto, QByteArray sep);
+void TxPraDouble(QByteArray tx, double &d);
+void LerLnFixPnt(QByteArray ln, QString &id, QString &atr, double &x, double &y, double &z);
+
+bool LerCaderneta(Quadro &qd);
+
+#endif // CADERNETA_H
