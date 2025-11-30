@@ -74,7 +74,15 @@ public:
     Quadro(Quadro &outro);
     Quadro operator = (Quadro &outro);
     void GetDimQuadro(double &xc, double &yc, double &sl, double &sa);
-    void SetDimQuadro(double &xc, double &yc, double &sl, double &sa);
+    double GetXc();
+    double GetYc();
+    double GetSl();
+    double GetSa();
+    void SetDimQuadro(double xc, double yc, double sl, double sa);
+    void SetXc(double arg);
+    void SetYc(double arg);
+    void SetSl(double arg);
+    void SetSa(double arg);
     void DimQuadro(double xi, double yi, double xa, double ya);
     void DimQuadro(Quadro tronco, bool norte, bool este);
     bool MinDistMax(double m);  //  critério pra dividir

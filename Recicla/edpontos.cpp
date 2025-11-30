@@ -187,12 +187,52 @@ void Quadro::GetDimQuadro(double &xc, double &yc, double &sl, double &sa)
     sa = Sa;
 }
 
-void Quadro::SetDimQuadro(double &xc, double &yc, double &sl, double &sa)
+double Quadro::GetXc()
+{
+    return Xc;
+}
+
+double Quadro::GetYc()
+{
+    return Yc;
+}
+
+double Quadro::GetSl()
+{
+    return Sl;
+}
+
+double Quadro::GetSa()
+{
+    return Sa;
+}
+
+void Quadro::SetDimQuadro(double xc, double yc, double sl, double sa)
 {
     Xc = xc;
     Yc = yc;
     Sl = sl;
     Sa = sa;
+}
+
+void Quadro::SetXc(double arg)
+{
+    Xc = arg;
+}
+
+void Quadro::SetYc(double arg)
+{
+    Yc = arg;
+}
+
+void Quadro::SetSl(double arg)
+{
+    Sl = arg;
+}
+
+void Quadro::SetSa(double arg)
+{
+    Sa = arg;
 }
 
 void Quadro::DimQuadro(double xi, double yi, double xa, double ya)

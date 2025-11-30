@@ -5,7 +5,7 @@
 #ifndef CADERNETA_H
 #define CADERNETA_H
 
-#define DIR_ "C:\\Tony\\Soft\\cpp\\InstLocal\\"
+#define IDIR "C:/Tony/Soft/cpp/Instâncias/"
 
 #include "edpontos.h"
 

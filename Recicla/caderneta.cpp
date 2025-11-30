@@ -72,10 +72,10 @@ void LerLnFixPnt(QByteArray ln, QString &id, QString &atr, double &x, double &y,
     TxPraDouble(tx, z);
 }
 
-bool LerCaderneta(Quadro &qd)
+bool LerCaderneta(Quadro &qd)       //  É cedo pra usar esta rotina .. tem que resolver a navegação primeiro.
 {
     QByteArray buf;
-    if(!LerArquivo(DIR_, "Texto (*.txt)", buf)) return false;
+    if(!LerArquivo(IDIR, "Texto (*.txt)", buf)) return false;
     Lista<QByteArray> linhas;
     SeparaTexto(linhas, buf, '\n');
     uint i = 0;

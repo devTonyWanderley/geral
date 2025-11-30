@@ -5,12 +5,18 @@
  *                  nome da chave:  id_rsa
  *      Segmento    30/11/25    17:40
  *          ->anexar pasta e arquivos de classe ok;
- *          ->revisar classe 'Quadro'
+ *          ->revisar classe 'Quadro'   ..  CONTINUA    ..
+ *      ->  Criar o registro de navegação através dos quadros no próprio
+ *          quadro usando uma pilha de endereços, principalmente quando
+ *          precisa-se percorrer todo quadro e seus sub-quadros.
+ *          Talvez elimina a necessidade da classe 'Locus'
+ *          *** fazer um commit pq devo fazer modificações profundas    ***
  */
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "Recicla/caderneta.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {class MainWindow;}
