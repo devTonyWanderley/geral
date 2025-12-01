@@ -10,7 +10,9 @@
 #include <cmath>
 #include "edgabarito.h"
 
-
+/**
+ * @brief   Tipo pra procura no plano xy
+ */
 class Locus
 {
 public:
@@ -27,6 +29,9 @@ private:
     double Y;
 };
 
+/**
+ * @brief   Sem comentários...
+ */
 class Ponto
 {
 public:
@@ -55,6 +60,10 @@ private:
     double Cota;
 };
 
+/**
+ * @brief   Compartimento de pontos
+ */
+
 class Quadro
 {
 private:
@@ -62,7 +71,6 @@ private:
     double Yc;
     double Sl;
     double Sa;
-    //bool DivideQuadro();
 public:
     Quadro *NE;
     Quadro *NW;
@@ -85,9 +93,6 @@ public:
     void SetSa(double arg);
     void DimQuadro(double xi, double yi, double xa, double ya);
     void DimQuadro(Quadro tronco, bool norte, bool este);
-    bool MinDistMax(double m);  //  critério pra dividir
-
-    bool DivideQuadro();
 };
 
 #endif // EDPONTOS_H

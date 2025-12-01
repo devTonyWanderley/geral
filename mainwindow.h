@@ -18,7 +18,46 @@
  *      ->Revisão profunda e rigorosa das 'estruturas gabarito'
  *      @date       01/12/25    13:48
  *      ->Funcional pra gerar o quadro
- *          Criar âncora pra limpar os excessos.
+ *          Criar ancora pra limpar os excessos.
+ *
+ *      mapa:
+ *          main.cpp:
+ *              "mainwindow.h"
+ *              <QApplication>
+ *              <QLocale>
+ *              <QTranslator>
+ *
+ *          mainwindow.cpp:
+ *              "mainwindow.h"
+ *              "./ui_mainwindow.h"
+ *
+ *          caderneta.cpp:
+ *              "caderneta.h"
+ *
+ *          edpontos.cpp:
+ *              "edpontos.h"
+ *
+ *          mainwindow.h
+ *              <QMainWindow>
+ *              "Recicla/caderneta.h"
+ *
+ *          caderneta.h:
+ *              "edpontos.h"
+ *              <QString>
+ *              <QFile>
+ *              <QFileDialog>
+ *              <QDebug>
+ *
+ *          edpontos.h:
+ *              "edpontos.h"
+ *              <QString>
+ *              <cmath>
+ *              "edgabarito.h"
+ *
+ *          edgabarito.h:
+ *
+ *
+ *
  */
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H

@@ -136,9 +136,7 @@ bool LerCaderneta(Quadro &qd)       //  É cedo pra usar esta rotina .. tem que 
             flg = true;
         }
     }
-    //  aqui, modela-se o quadro
     qd.DimQuadro(xi, yi, xa, ya);
-    //EstruQuadro(&qd);
     Pilha<Quadro*> pq;
     pq.Push(&qd);
     Quadro *aponta;
@@ -213,82 +211,4 @@ bool LerCaderneta(Quadro &qd)       //  É cedo pra usar esta rotina .. tem que 
         }
     }
     return true;
-}
-
-void ImprimeQuadro(Quadro& qd)
-{
-    Pilha<Quadro*> pqd;
-    pqd.Push(&qd);
-    Quadro* aponta;
-    while(pqd.Lenght())
-    {
-        pqd.Pop(aponta);
-        qDebug()
-            << "C " << aponta->GetXc() << ' ' << aponta->GetYc() << '\t'
-            << "Lh " << aponta->GetSl() << ' ' << aponta->GetSa() << '\t'
-            << "Np " << aponta->Lp.Length();
-        if(aponta->NE)
-        {
-            pqd.Push(aponta->SE);
-            pqd.Push(aponta->SW);
-            pqd.Push(aponta->NW);
-            pqd.Push(aponta->NE);
-        }
-    }
-}
-
-void EstruQuadro(Quadro *qd)
-{
-    Locus l(qd->GetXc(), qd->GetYc());
-    Pilha<Locus> pl;
-    pl.Push(l);
-    Quadro *aponta = qd;
-    //qDebug() << "l 152";
-    while(pl.Lenght())
-    {
-        qDebug() << "l 155";
-        pl.Pop(l);
-        qDebug() << "l 157 " << l.get_x() << ' ' << l.get_y();
-        aponta = Navega(aponta, l);
-        qDebug() << "l 159";
-        if(aponta)
-        {
-            if(aponta->DivideQuadro())
-            {
-                l.set_x(aponta->SE->GetXc());
-                l.set_y(aponta->SE->GetYc());
-                pl.Push(l);
-                l.set_x(aponta->SW->GetXc());
-                l.set_y(aponta->SW->GetYc());
-                pl.Push(l);
-                l.set_x(aponta->NW->GetXc());
-                l.set_y(aponta->NW->GetYc());
-                pl.Push(l);
-                l.set_x(aponta->NE->GetXc());
-                l.set_y(aponta->NE->GetYc());
-                pl.Push(l);
-            }
-        }
-    }
-/**
-     * preencher quadro:
-     *      *raiz -> pilha;
-     *      enquanto topo:
-     *          acessa topo;    ..  eAtual = topo
-     *          remove topo;    ..  pop!
-     *          se existe pontos no eAtual & critério de distancia:
-     *              cria SE em eAtual;
-     *              SE -> topo;
-     *              cria SW em eAtual;
-     *              SW -> topo;
-     *              cria NW em eAtual;
-     *              NW -> topo;
-     *              cria NE em eAtual;
-     *              NE -> topo;
-     *              enquanto eAtual.Lp:
-     *                  eAtual.Lp.ponto -> (NE .. SE, conforme posição relativa);
-     *              fim enquanto;
-     *          fim se;
-     *      fim enquanto;
-    */
 }

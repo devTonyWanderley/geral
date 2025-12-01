@@ -4,10 +4,8 @@
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    qDebug() << "L 7";
     Quadro qd;
     if(!LerCaderneta(qd)) return;
-    ImprimeQuadro(qd);
     qDebug()
         << "Centro: "
         << qd.GetXc()

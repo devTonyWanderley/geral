@@ -5,26 +5,21 @@
 #ifndef EDGABARITO_H
 #define EDGABARITO_H
 
-#include <QDebug>
-
+/**
+ * @brief   Nó de dados de ligação simples
+ */
 template <class T>
 class No
 {
 public:
     No<T> *Segue;
     T Valor;
+
     No()
     {
         Segue = nullptr;
         Valor = T();
     }
-
-    /*
-    No(T &arg)
-    {
-        Segue = nullptr;
-        Valor = T(arg);
-    }*/
 
     No(const T& arg)
     {
@@ -33,6 +28,9 @@ public:
     }
 };
 
+/**
+ * @brief   Estrutura de lista de ligação simple clássica
+ */
 template <class T>
 class Lista
 {
@@ -143,6 +141,9 @@ public:
     }
 };
 
+/**
+ * @brief   Estrutura de fila de ligação simple clássica
+ */
 template <class T>
 class Fila
 {
@@ -173,6 +174,9 @@ public:
     }
 };
 
+/**
+ * @brief   Estrutura de pilha de ligação simple clássica
+ */
 template <class T>
 class Pilha
 {
