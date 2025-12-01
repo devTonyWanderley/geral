@@ -16,7 +16,7 @@ public:
         Segue = nullptr;
         Valor = T();
     }
-    No(T &arg)
+    No(T arg)
     {
         Segue = nullptr;
         Valor = T(arg);
@@ -43,7 +43,7 @@ public:
         Count = CAtual = 0;
     }
 
-    void PushFront(T &arg)
+    void PushFront(T arg)
     {
         No<T> *aponta = new No<T>(arg);
         if(Fundo)
@@ -55,7 +55,7 @@ public:
         Count++;
     }
 
-    void PushBack(T &arg)
+    void PushBack(T arg)
     {
         No<T> *aponta = new No<T>(arg);
         if(Fundo)
@@ -176,7 +176,7 @@ public:
     Pilha()
     {}
 
-    void Push(T &arg)
+    void Push(T arg)
     {
         lst.PushFront(arg);
     }

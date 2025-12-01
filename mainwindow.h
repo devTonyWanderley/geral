@@ -11,6 +11,11 @@
  *          precisa-se percorrer todo quadro e seus sub-quadros.
  *          Talvez elimina a necessidade da classe 'Locus'
  *          *** fazer um commit pq devo fazer modificações profundas    ***
+ *
+ *          remover os 'navega's de 'quadro'
+ *
+ *      @date       01/12/25    8:23
+ *      ->Revisão profunda e rigorosa das 'estruturas gabarito'
  */
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H

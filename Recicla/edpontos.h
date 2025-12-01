@@ -86,8 +86,6 @@ public:
     void DimQuadro(double xi, double yi, double xa, double ya);
     void DimQuadro(Quadro tronco, bool norte, bool este);
     bool MinDistMax(double m);  //  critério pra dividir
-    Quadro * Navega(Quadro *r, Locus l);
-    Quadro * Navega(Quadro *r, double x, double y);
 
     bool DivideQuadro();
 };

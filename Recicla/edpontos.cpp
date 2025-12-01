@@ -299,30 +299,3 @@ bool Quadro::DivideQuadro()
     }
     return true;
 }
-
-Quadro * Quadro::Navega(Quadro *r, Locus l)
-{
-    Quadro *aponta = nullptr;
-    double x = r->Xc - r->Sl, y = r->Yc - r->Sa;
-    if((l.get_x() < x) || (l.get_y() < y)) return aponta;   //  l está fora do quadro por falta .. retorna nil
-    x += (2 * r->Sl);
-    y += (2 * r->Sa);
-    if((l.get_x() > x) || (l.get_y() > y)) return aponta;   //  l está fora do quadro por excesso .. retorna nil
-    aponta = r;
-    while(aponta->NE){
-        if(l.get_x() < aponta->Xc){
-            if(l.get_y() < aponta->Yc) aponta = aponta->SW;
-            else aponta = aponta->NW;
-        }
-        else{
-            if(l.get_y() < aponta->Yc) aponta = aponta->SE;
-            else aponta = aponta->NE;
-        }
-    }
-    return aponta;
-}
-
-Quadro * Quadro::Navega(Quadro *r, double x, double y)
-{
-    return Navega(r, Locus(x, y));
-}

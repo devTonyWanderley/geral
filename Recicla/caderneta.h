@@ -20,7 +20,8 @@ void SeparaTexto(Lista<QByteArray>&partes, QByteArray &texto, char sep);
 void SeparaTexto(Lista<QByteArray>&partes, QByteArray &texto, QByteArray sep);
 void TxPraDouble(QByteArray tx, double &d);
 void LerLnFixPnt(QByteArray ln, QString &id, QString &atr, double &x, double &y, double &z);
-
+Quadro * Navega(Quadro *qd, Locus lc);
+void EstruQuadro(Quadro *qd);
 bool LerCaderneta(Quadro &qd);
 
 #endif // CADERNETA_H
