@@ -16,6 +16,9 @@
  *
  *      @date       01/12/25    8:23
  *      ->Revisão profunda e rigorosa das 'estruturas gabarito'
+ *      @date       01/12/25    13:48
+ *      ->Funcional pra gerar o quadro
+ *          Criar âncora pra limpar os excessos.
  */
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H

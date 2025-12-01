@@ -16,12 +16,12 @@ class Locus
 public:
     Locus();
     Locus(double x, double y);
-    Locus(Locus &outro);
+    Locus(const Locus& outro);
     void set_x(double x);
     void set_y(double y);
     double get_x();
     double get_y();
-    Locus operator = (Locus &outro);
+    Locus operator = (const Locus& outro);
 private:
     double X;
     double Y;
@@ -32,7 +32,7 @@ class Ponto
 public:
     Ponto();
     Ponto(QString id, QString atr, double x, double y, double z);
-    Ponto(Ponto &outro);
+    Ponto(const Ponto& outro);
     void setId(QString id);
     void setAtr(QString atr);
     void setX(double x);
@@ -44,8 +44,8 @@ public:
     double getY();
     double getZ();
     Ponto projEmXy();
-    double dist(Ponto &outro);
-    Ponto operator = (Ponto outro);
+    double dist(const Ponto outro);
+    Ponto operator = (const Ponto& outro);
     bool operator == (Ponto outro);
 private:
     QString Nome;
@@ -71,8 +71,8 @@ public:
     Lista<Ponto> Lp;
     Quadro();
     Quadro(double xc, double yc, double sl, double sa);
-    Quadro(Quadro &outro);
-    Quadro operator = (Quadro &outro);
+    Quadro(const Quadro& outro);
+    Quadro operator = (const Quadro& outro);
     void GetDimQuadro(double &xc, double &yc, double &sl, double &sa);
     double GetXc();
     double GetYc();

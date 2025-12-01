@@ -11,7 +11,7 @@ Locus::Locus(double x, double y)
     Y = y;
 }
 
-Locus::Locus(Locus &outro)
+Locus::Locus(const Locus& outro)
 {
     X = outro.X;
     Y = outro.Y;
@@ -37,7 +37,7 @@ double Locus::get_y()
     return Y;
 }
 
-Locus Locus::operator =(Locus &outro)
+Locus Locus::operator =(const Locus& outro)
 {
     X = outro.X;
     Y = outro.Y;
@@ -59,13 +59,13 @@ Ponto::Ponto(QString id, QString atr, double x, double y, double z)
     Cota = z;
 }
 
-Ponto::Ponto(Ponto &outro)
+Ponto::Ponto(const Ponto& outro)
 {
-    Nome = outro.getId();
-    Atri = outro.getAtr();
-    Abci = outro.getX();
-    Orde = outro.getY();
-    Cota = outro.getZ();
+    Nome = outro.Nome;
+    Atri = outro.Atri;
+    Abci = outro.Abci;
+    Orde = outro.Orde;
+    Cota = outro.Cota;
 }
 
 void Ponto::setId(QString id)
@@ -123,12 +123,12 @@ Ponto Ponto::projEmXy()
     return Ponto(Nome + "_p", Nome + "_xy", Abci, Orde, 0);
 }
 
-double Ponto::dist(Ponto &outro)
+double Ponto::dist(const Ponto outro)
 {
     return pow((pow((outro.Abci - Abci), 2) + pow((outro.Orde - Orde), 2) + pow((outro.Cota - Cota), 2)), 0.5);
 }
 
-Ponto Ponto::operator = (Ponto outro)
+Ponto Ponto::operator = (const Ponto& outro)
 {
     Nome = outro.Nome;
     Atri = outro.Atri;
@@ -160,7 +160,7 @@ Quadro::Quadro(double xc, double yc, double sl, double sa)
     Sa = sa;
 }
 
-Quadro::Quadro(Quadro &outro)
+Quadro::Quadro(const Quadro& outro)
 {
     NE = NW = SW = SE = nullptr;
     Xc = outro.Xc;
@@ -169,7 +169,7 @@ Quadro::Quadro(Quadro &outro)
     Sa = outro.Sa;
 }
 
-Quadro Quadro::operator = (Quadro &outro)
+Quadro Quadro::operator = (const Quadro& outro)
 {
     NE = NW = SW = SE = nullptr;
     Xc = outro.Xc;
@@ -256,6 +256,7 @@ void Quadro::DimQuadro(Quadro tronco, bool norte, bool este)
 
 bool Quadro::MinDistMax(double m)
 {
+    qDebug() << "edpontos 259";
     Ponto p, q;
     uint i = 1, j;
     while(Lp.GetN(p, i))
@@ -274,7 +275,15 @@ bool Quadro::MinDistMax(double m)
 
 bool Quadro::DivideQuadro()
 {
-    if((Sl < 0.003) || (Sa < 0.003) || (Lp.Length() < 2) || (!MinDistMax(0.002))) return false;
+    qDebug() << "edpontos 278 .. " << Lp.Length();
+    if(!Lp.Length()) return false;
+    if(Lp.Length() < 2) return false;
+    qDebug() << "edpontos 280";
+    if(Sl < 0.003) return false;
+    if(Sa < 0.003) return false;
+    qDebug() << "edpontos 283";
+    if(!MinDistMax(0.002)) return false;
+    qDebug() << "edpontos 285";
     NE = new Quadro;
     NE->DimQuadro(*this, true, true);
     NW = new Quadro;
@@ -288,13 +297,25 @@ bool Quadro::DivideQuadro()
     {
         if(p.getX() < Xc)
         {
-            if(p.getY() < Yc) SW->Lp.PushFront(p);
-            else NW->Lp.PushFront(p);
+            if(p.getY() < Yc)
+            {
+                SW->Lp.PushFront(p);
+            }
+            else
+            {
+                NW->Lp.PushFront(p);
+            }
         }
         else
         {
-            if(p.getY() < Yc) SE->Lp.PushFront(p);
-            else NE->Lp.PushFront(p);
+            if(p.getY() < Yc)
+            {
+                SE->Lp.PushFront(p);
+            }
+            else
+            {
+                NE->Lp.PushFront(p);
+            }
         }
     }
     return true;

@@ -138,19 +138,119 @@ bool LerCaderneta(Quadro &qd)       //  É cedo pra usar esta rotina .. tem que 
     }
     //  aqui, modela-se o quadro
     qd.DimQuadro(xi, yi, xa, ya);
+    //EstruQuadro(&qd);
+    Pilha<Quadro*> pq;
+    pq.Push(&qd);
+    Quadro *aponta;
+    while(pq.Lenght())
+    {
+        pq.Pop(aponta);
+        flg = false;
+        if(aponta->Lp.Length() > 1)
+        {
+            i = 1;
+            uint j;
+            while(!flg && (i < aponta->Lp.Length()))
+            {
+                j = i + 1;
+                while(!flg && (j <= aponta->Lp.Length()))
+                {
+                    Ponto p, q, r, s;
+                    if(aponta->Lp.GetN(p, i) && aponta->Lp.GetN(q, j))
+                    {
+                        r = p.projEmXy();
+                        s = q.projEmXy();
+                        if(r.dist(s) > 0.003)
+                        {
+                            flg = true;
+                        }
+                    }
+                    j++;
+                }
+                i++;
+            }
+            if(flg)
+            {
+                aponta->SE = new Quadro;
+                aponta->SE->DimQuadro(*aponta, false, true);
+                pq.Push(aponta->SE);
+                aponta->SW = new Quadro;
+                aponta->SW->DimQuadro(*aponta, false, false);
+                pq.Push(aponta->SW);
+                aponta->NW = new Quadro;
+                aponta->NW->DimQuadro(*aponta, true, false);
+                pq.Push(aponta->NW);
+                aponta->NE = new Quadro;
+                aponta->NE->DimQuadro(*aponta, true, true);
+                pq.Push(aponta->NE);
+                Ponto p;
+                while(aponta->Lp.PopFront(p))
+                {
+                    if(p.getX() < aponta->GetXc())
+                    {
+                        if(p.getY() < aponta->GetYc())
+                        {
+                            aponta->SW->Lp.PushFront(p);
+                        }
+                        else
+                        {
+                            aponta->NW->Lp.PushFront(p);
+                        }
+                    }
+                    else
+                    {
+                        if(p.getY() < aponta->GetYc())
+                        {
+                            aponta->SE->Lp.PushFront(p);
+                        }
+                        else
+                        {
+                            aponta->NE->Lp.PushFront(p);
+                        }
+                    }
+                }
+            }
+        }
+    }
     return true;
 }
 
-void EstruQuadro(Quadro *qd)        //  Precisa-se de um bom mecanismo de navegação por valor
+void ImprimeQuadro(Quadro& qd)
+{
+    Pilha<Quadro*> pqd;
+    pqd.Push(&qd);
+    Quadro* aponta;
+    while(pqd.Lenght())
+    {
+        pqd.Pop(aponta);
+        qDebug()
+            << "C " << aponta->GetXc() << ' ' << aponta->GetYc() << '\t'
+            << "Lh " << aponta->GetSl() << ' ' << aponta->GetSa() << '\t'
+            << "Np " << aponta->Lp.Length();
+        if(aponta->NE)
+        {
+            pqd.Push(aponta->SE);
+            pqd.Push(aponta->SW);
+            pqd.Push(aponta->NW);
+            pqd.Push(aponta->NE);
+        }
+    }
+}
+
+void EstruQuadro(Quadro *qd)
 {
     Locus l(qd->GetXc(), qd->GetYc());
     Pilha<Locus> pl;
     pl.Push(l);
     Quadro *aponta = qd;
+    //qDebug() << "l 152";
     while(pl.Lenght())
     {
+        qDebug() << "l 155";
         pl.Pop(l);
+        qDebug() << "l 157 " << l.get_x() << ' ' << l.get_y();
         aponta = Navega(aponta, l);
+        qDebug() << "l 159";
         if(aponta)
         {
             if(aponta->DivideQuadro())

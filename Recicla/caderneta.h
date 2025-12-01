@@ -13,7 +13,7 @@
 #include <QFile>
 #include <QFileDialog>
 
-//#include <QDebug>
+#include <QDebug>
 
 bool LerArquivo(QString dir, QString filtro, QByteArray &qba);
 void SeparaTexto(Lista<QByteArray>&partes, QByteArray &texto, char sep);
@@ -23,5 +23,7 @@ void LerLnFixPnt(QByteArray ln, QString &id, QString &atr, double &x, double &y,
 Quadro * Navega(Quadro *qd, Locus lc);
 void EstruQuadro(Quadro *qd);
 bool LerCaderneta(Quadro &qd);
+
+void ImprimeQuadro(Quadro& qd);
 
 #endif // CADERNETA_H

@@ -5,6 +5,8 @@
 #ifndef EDGABARITO_H
 #define EDGABARITO_H
 
+#include <QDebug>
+
 template <class T>
 class No
 {
@@ -16,17 +18,21 @@ public:
         Segue = nullptr;
         Valor = T();
     }
-    No(T arg)
+
+    /*
+    No(T &arg)
+    {
+        Segue = nullptr;
+        Valor = T(arg);
+    }*/
+
+    No(const T& arg)
     {
         Segue = nullptr;
         Valor = T(arg);
     }
 };
 
-/**
- * @date    29/11/25 11:03
- * @brief   da classe 'Lista'
- */
 template <class T>
 class Lista
 {
@@ -43,7 +49,7 @@ public:
         Count = CAtual = 0;
     }
 
-    void PushFront(T arg)
+    void PushFront(const T& arg)
     {
         No<T> *aponta = new No<T>(arg);
         if(Fundo)
@@ -55,7 +61,7 @@ public:
         Count++;
     }
 
-    void PushBack(T arg)
+    void PushBack(const T& arg)
     {
         No<T> *aponta = new No<T>(arg);
         if(Fundo)
@@ -114,7 +120,7 @@ public:
         return true;
     }
 
-    bool GetN(T &var, uint n)
+    bool GetN(T &var, const uint n)
     {
         if(Count < n) return false;
         if(CAtual > n || !Atual)
@@ -146,7 +152,7 @@ public:
     Fila()
     {}
 
-    void Push(T &arg)
+    void Push(const T& arg)
     {
         lst.PushBack(arg);
     }
@@ -176,7 +182,7 @@ public:
     Pilha()
     {}
 
-    void Push(T arg)
+    void Push(const T& arg)
     {
         lst.PushFront(arg);
     }
