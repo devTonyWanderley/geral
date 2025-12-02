@@ -19,12 +19,12 @@
      <rect>
       <x>80</x>
       <y>50</y>
-      <width>93</width>
+      <width>161</width>
       <height>29</height>
      </rect>
     </property>
     <property name="text">
-     <string>Roda</string>
+     <string>Definir campos</string>
     </property>
    </widget>
   </widget>

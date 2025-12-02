@@ -63,7 +63,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "Recicla/caderneta.h"
+//#include "Recicla/caderneta.h"
+#include "Recicla/mascara.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {class MainWindow;}
@@ -82,5 +83,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    Mascara *msc;
 };
 #endif // MAINWINDOW_H
