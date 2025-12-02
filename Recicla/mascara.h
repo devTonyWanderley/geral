@@ -15,6 +15,12 @@ public:
     ~Mascara();
 
 private slots:
+    void on_leTtl_textChanged(const QString &arg1);
+
+    void on_leTam_textChanged(const QString &arg1);
+
+    void on_cbTipo_currentIndexChanged(int index);
+
 private:
     Ui::Mascara *ui;
 };
