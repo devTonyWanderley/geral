@@ -4,39 +4,88 @@
 Mascara::Mascara(QWidget *parent): QDialog(parent), ui(new Ui::Mascara)
 {
     ui->setupUi(this);
-    QStringList tipos;
-    tipos << "Texto" << "Real" << "Inteiro";
-    ui->cbTipo->addItems(tipos);
+    //QStringList tipos;
+    //tipos << "Texto" << "Real" << "Inteiro";
+    TxMsc.clear();
+    TxMsc << "Texto" << "Real" << "Inteiro";
+    //ui->cbTipo->addItems(tipos);
+    ui->cbTipo->addItems(TxMsc);
+    TxMsc.clear();
     ui->pbAdd->setEnabled(false);
     ui->pbRemove->setEnabled(false);
+    ui->cbTipo->setEnabled(false);
+    ui->leTam->setEnabled(false);
+    ui->cbMasc->setVisible(false);
+}
+
+QString Mascara::Valida(QString arg, uint op)
+{
+    QString r = arg;
+    if(!r.length()) return r;
+    QChar ch = r.back();
+    if(!op)
+    {
+        if((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z')) return r;
+        return r.left(r.length() - 1);
+    }
+    if(ch >= '0' && ch <= '9') return r;
+    return r.left(r.length() - 1);
 }
 
 void Mascara::on_leTtl_textChanged(const QString &arg1)
 {
-    QString tx = arg1;
-    if(tx.length())
-    {
-        QChar ch = tx.back();
-        if(!((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z')))
-            tx = tx.left((tx.length() - 1));
-    }
-    ui->leTtl->setText(tx);
+    ui->leTtl->setText(Valida(arg1, 0));
+    ui->leTam->setEnabled(ui->leTtl->text().length());
+    ui->cbTipo->setEnabled(ui->leTam->text().length() && ui->leTtl->text().length());
+    ui->pbAdd->setEnabled(ui->leTam->text().length() && ui->leTtl->text().length());
+    ui->cbMasc->setVisible(ui->leTam->text().length() && ui->leTtl->text().length());
 }
 
 void Mascara::on_leTam_textChanged(const QString &arg1)
 {
-    QString tx = arg1;
-    if(tx.length())
-    {
-        QChar ch = tx.back();
-        if(!(ch >= '0' && ch <= '9'))
-            tx = tx.left((tx.length() - 1));
-    }
-    ui->leTam->setText(tx);
+    ui->leTam->setText(Valida(arg1, 1));
+    ui->cbTipo->setEnabled(ui->leTam->text().length() && ui->leTtl->text().length());
+    ui->pbAdd->setEnabled(ui->leTam->text().length() && ui->leTtl->text().length());
+    ui->cbMasc->setVisible(ui->leTam->text().length() && ui->leTtl->text().length());
 }
 
 void Mascara::on_cbTipo_currentIndexChanged(int index)
 {}
+
+void Mascara::on_cbMasc_activated(int index)
+{
+    qDebug()
+        << "on_cbMasc_activated"
+        << '\t'
+        << ui->cbMasc->currentText()
+        << '\t'
+        << ui->cbMasc->currentIndex()
+        << '\t'
+        << TxMsc.at(ui->cbMasc->currentIndex());
+    ui->pbRemove->setEnabled(true);
+}
+
+void Mascara::on_pbAdd_clicked()
+{
+    QString ln = ui->leTtl->text() + ' ' + ui->leTam->text() + ' ' + ui->cbTipo->currentText();
+    TxMsc.push_back(ln);
+    ui->cbMasc->clear();
+    ui->cbMasc->addItems(TxMsc);
+    ui->cbMasc->setCurrentIndex(TxMsc.length()-1);
+}
+
+void Mascara::on_pbRemove_clicked()
+{
+    if(!TxMsc.length()) return;
+    QStringList copia = TxMsc;
+    TxMsc.clear();
+    for(uint i = 0; i < copia.length(); i++)
+    {
+        if(i != ui->cbMasc->currentIndex()) TxMsc.push_back(copia.at(i));
+    }
+    ui->cbMasc->clear();
+    ui->cbMasc->addItems(TxMsc);
+}
 
 Mascara::~Mascara()
 {
