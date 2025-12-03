@@ -8,6 +8,7 @@
 #define IDIR "C:/Tony/Soft/cpp/Instâncias/"
 
 #include "edpontos.h"
+#include "mascara.h"
 
 #include <QString>
 #include <QFile>

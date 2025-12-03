@@ -28,6 +28,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
         Recicla/caderneta.cpp Recicla/caderneta.h Recicla/edgabarito.h Recicla/edpontos.cpp Recicla/edpontos.h
         Recicla/mascara.h Recicla/mascara.cpp Recicla/mascara.ui
+        Recicla/arquivo.h Recicla/arquivo.cpp
 
     )
 # Define target properties for Android with Qt 6 as:

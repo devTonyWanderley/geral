@@ -56,6 +56,9 @@
  *
  *          edgabarito.h:
  *
+ *      @date       03/12/25    11:03
+ *      ->Hora de reestruturar pra parametrizar arquivos de comprimento fixo...
+ *      ->Criar uma nova "classe" pra substituir "caderneta":
  *
  *
  */
@@ -65,6 +68,7 @@
 #include <QMainWindow>
 //#include "Recicla/caderneta.h"
 #include "Recicla/mascara.h"
+#include "Recicla/arquivo.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {class MainWindow;}
@@ -80,6 +84,8 @@ public:
 
 private slots:
     void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
 
 private:
     Ui::MainWindow *ui;

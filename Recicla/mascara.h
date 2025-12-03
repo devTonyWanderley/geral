@@ -2,7 +2,7 @@
 #define MASCARA_H
 
 #include <QDialog>
-#include "caderneta.h"
+//#include "caderneta.h"
 
 namespace Ui {class Mascara;}
 

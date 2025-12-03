@@ -4,11 +4,8 @@
 Mascara::Mascara(QWidget *parent): QDialog(parent), ui(new Ui::Mascara)
 {
     ui->setupUi(this);
-    //QStringList tipos;
-    //tipos << "Texto" << "Real" << "Inteiro";
     TxMsc.clear();
     TxMsc << "Texto" << "Real" << "Inteiro";
-    //ui->cbTipo->addItems(tipos);
     ui->cbTipo->addItems(TxMsc);
     TxMsc.clear();
     ui->pbAdd->setEnabled(false);
@@ -54,14 +51,6 @@ void Mascara::on_cbTipo_currentIndexChanged(int index)
 
 void Mascara::on_cbMasc_activated(int index)
 {
-    qDebug()
-        << "on_cbMasc_activated"
-        << '\t'
-        << ui->cbMasc->currentText()
-        << '\t'
-        << ui->cbMasc->currentIndex()
-        << '\t'
-        << TxMsc.at(ui->cbMasc->currentIndex());
     ui->pbRemove->setEnabled(true);
 }
 
