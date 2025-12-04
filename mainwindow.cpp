@@ -24,6 +24,7 @@ void MainWindow::on_pushButton_2_clicked()
     //    qDebug()
     //        << msc->TxMsc.at(i);
     arquivo arq(msc->TxMsc);
+    //arq.testes(msc->TxMsc);
     arq.testes(IDIR, "todos (*.*)", "Abrir arquivo");
 }
 

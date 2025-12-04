@@ -13,19 +13,49 @@ arquivo::arquivo(QStringList &msc)
 bool arquivo::DefMascara(QStringList &msc)
 {
     if(!msc.length()) return false;
+    QString ch, tt;
     for(uint i = 0; i < msc.length(); i++)
     {
-        QString tx = msc.at(i), tt, ch, tp;
-        tt = tx.left(tx.indexOf(' '));
-        tx = tx.right(tx.length() - tx.indexOf(' ') - 1);
-        ch = tx.left(tx.indexOf(' '));
-        tp = tx.right(tx.length() - tx.indexOf(' ') - 1);
-        //tp = tx.right(tx.length() - 1);
+        ch = msc.at(i);
+        tt = ch.left(ch.indexOf(' '));
+        ch = ch.right(ch.length() - ch.indexOf(' ') - 1);
         TtlMsc.PushBack(tt);
         ChMsc.PushBack(ch.toUInt());
-        TpMsc.PushBack(tp);
     }
     return true;
+}
+
+void arquivo::SeparaPorBandeira(QString &fonte, QString bd, QStringList &qsl)
+{
+    QString tx = fonte, dd;
+    qsl.clear();
+    while(tx.indexOf(bd) != -1)
+    {
+        dd = tx.left(tx.indexOf(bd));
+        tx = tx.right(tx.length() - tx.indexOf(bd) - 1);
+        qsl.push_back(dd);
+    }
+    qsl.push_back(tx);
+}
+
+void arquivo::SeparaPorBandeira(QString &fonte, QChar bd, QStringList &qsl)
+{
+    QString tx = bd;
+    SeparaPorBandeira(fonte, tx, qsl);
+}
+
+void arquivo::SeparaFixos(QString linha, Lista<QString> &qsl)
+{
+    QString tx = linha, ty;
+    qsl.Clear();
+    uint i = 1, j;
+    while(ChMsc.GetN(j, i))
+    {
+        ty = tx.left(j);
+        tx = tx.right(tx.length() - j);
+        qsl.PushBack(ty);
+        i++;
+    }
 }
 
 bool arquivo::LerDdsArq(QString dir, QString filtro, QString titulo)
@@ -43,83 +73,37 @@ bool arquivo::LerDdsArq(QString dir, QString filtro, QString titulo)
 
 void arquivo::testes(QString dir, QString filtro, QString titulo)
 {
-    QString tt, tp;
-    uint ch;
-    for(uint i = 1; i <= ChMsc.Length(); i++)
+    if(!LerDdsArq(dir, filtro, titulo))
     {
-        TtlMsc.GetN(tt, i);
-        TpMsc.GetN(tp, i);
-        ChMsc.GetN(ch, i);
+        qDebug() << "algo errado...";
+        return;
+    }
+    QStringList linhas;
+    SeparaPorBandeira(Buffer, '\n', linhas);
+    qDebug()
+        << linhas.length()
+        << " linhas de dados.";
+    for(uint i = 0; i < linhas.length(); i++)
+    {
         qDebug()
-            << tt
-            << '\t'
-            << tp
-            << '\t'
-            << ch;
+        << linhas.at(i);
+        Lista<QString> qsl;
+        SeparaFixos(linhas.at(i), qsl); //  ......................................
+        Dados.PushFront(qsl);
     }
-    if(LerDdsArq(dir, filtro, titulo))
+    Lista<QString> nome;
+    qDebug()
+        << Dados.Length();
+      //  << Dados.GetFront(nome);
+     //   << nome.at(1);
+    /*
+    QStringList qsl;
+    uint i = 1;
+    while(Dados.GetN(qsl, i))
     {
-        Lista<QString> lista;
-        if(SeparaPorBandeira('\n', lista))
-        {
-            Lista<QString> lst1;
-            while(lista.PopFront(tt))
-            {
-                SeparaFixos(tt, lst1);
-                Dados.PushBack(lst1);
-            }
-            uint i = 1;
-            while(Dados.GetN(lst1, i++))
-            {
-                uint j = 1;
-                tp = "";
-                while(lst1.GetN(tt, j++))
-                {
-                    tp += '\t';
-                    tp += tt;
-                }
-                qDebug() << tp;
-            }
-        }
-        else
-            qDebug() << "Erro";
-    }
-}
-
-bool arquivo::SeparaPorBandeira(QString bd, Lista<QString> &lst)
-{
-    if(!Buffer.length()) return false;
-    QString tx, dd;
-    while(lst.Length()) lst.PopBack(tx);
-    tx = Buffer;
-    while(tx.indexOf(bd) != -1)
-    {
-        dd = tx.left(tx.indexOf(bd));
-        tx = tx.right(tx.length() - tx.indexOf(bd) - 1);
-        lst.PushBack(dd);
-    }
-    lst.PushBack(tx);
-    return true;
-}
-
-bool arquivo::SeparaPorBandeira(QChar bd, Lista<QString> &lst)
-{
-    QString tx = bd;
-    return SeparaPorBandeira(tx, lst);
-}
-
-bool arquivo::SeparaFixos(QString linha, Lista<QString> &lst)
-{
-    QString tx, ty;
-    while(lst.Length()) lst.PopBack(tx);
-    uint i = 1, j;
-    tx = linha;
-    while(ChMsc.GetN(j, i))
-    {
-        ty = tx.left(j);
-        tx = tx.right(tx.length() - j);
-        lst.PushBack(ty);
+        qDebug()
+            << qsl.at(0);
         i++;
     }
-    return true;
+    */
 }

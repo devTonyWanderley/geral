@@ -5,14 +5,11 @@ Mascara::Mascara(QWidget *parent): QDialog(parent), ui(new Ui::Mascara)
 {
     ui->setupUi(this);
     TxMsc.clear();
-    TxMsc << "Texto" << "Real" << "Inteiro";
-    ui->cbTipo->addItems(TxMsc);
-    TxMsc.clear();
     ui->pbAdd->setEnabled(false);
     ui->pbRemove->setEnabled(false);
-    ui->cbTipo->setEnabled(false);
     ui->leTam->setEnabled(false);
     ui->cbMasc->setVisible(false);
+    ui->leTtl->setFocus();
 }
 
 QString Mascara::Valida(QString arg, uint op)
@@ -33,21 +30,26 @@ void Mascara::on_leTtl_textChanged(const QString &arg1)
 {
     ui->leTtl->setText(Valida(arg1, 0));
     ui->leTam->setEnabled(ui->leTtl->text().length());
-    ui->cbTipo->setEnabled(ui->leTam->text().length() && ui->leTtl->text().length());
     ui->pbAdd->setEnabled(ui->leTam->text().length() && ui->leTtl->text().length());
     ui->cbMasc->setVisible(ui->leTam->text().length() && ui->leTtl->text().length());
+}
+
+void Mascara::on_leTtl_editingFinished()
+{
+    ui->leTam->setFocus();
+    ui->leTam->selectAll();
 }
 
 void Mascara::on_leTam_textChanged(const QString &arg1)
 {
     ui->leTam->setText(Valida(arg1, 1));
-    ui->cbTipo->setEnabled(ui->leTam->text().length() && ui->leTtl->text().length());
     ui->pbAdd->setEnabled(ui->leTam->text().length() && ui->leTtl->text().length());
     ui->cbMasc->setVisible(ui->leTam->text().length() && ui->leTtl->text().length());
 }
-
-void Mascara::on_cbTipo_currentIndexChanged(int index)
-{}
+void Mascara::on_leTam_editingFinished()
+{
+    ui->pbAdd->setFocus();
+}
 
 void Mascara::on_cbMasc_activated(int index)
 {
@@ -56,11 +58,13 @@ void Mascara::on_cbMasc_activated(int index)
 
 void Mascara::on_pbAdd_clicked()
 {
-    QString ln = ui->leTtl->text() + ' ' + ui->leTam->text() + ' ' + ui->cbTipo->currentText();
+    QString ln = ui->leTtl->text() + ' ' + ui->leTam->text();
     TxMsc.push_back(ln);
     ui->cbMasc->clear();
     ui->cbMasc->addItems(TxMsc);
     ui->cbMasc->setCurrentIndex(TxMsc.length()-1);
+    ui->leTtl->setFocus();
+    ui->leTtl->selectAll();
 }
 
 void Mascara::on_pbRemove_clicked()
@@ -74,6 +78,11 @@ void Mascara::on_pbRemove_clicked()
     }
     ui->cbMasc->clear();
     ui->cbMasc->addItems(TxMsc);
+}
+
+void Mascara::on_pbOk_clicked()
+{
+    this->hide();
 }
 
 Mascara::~Mascara()

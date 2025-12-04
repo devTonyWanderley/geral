@@ -17,14 +17,15 @@ public:
 
 private slots:
     void on_leTtl_textChanged(const QString &arg1);
+    void on_leTtl_editingFinished();
     void on_leTam_textChanged(const QString &arg1);
-    void on_cbTipo_currentIndexChanged(int index);
-
     void on_pbAdd_clicked();
-
     void on_cbMasc_activated(int index);
-
     void on_pbRemove_clicked();
+
+    void on_leTam_editingFinished();
+
+    void on_pbOk_clicked();
 
 private:
     Ui::Mascara *ui;

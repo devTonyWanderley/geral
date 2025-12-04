@@ -47,6 +47,15 @@ public:
         Count = CAtual = 0;
     }
 
+    Lista(Lista &outra)
+    {
+        Frente = outra.Frente;
+        Fundo = outra.Fundo;
+        Atual = outra.Atual;
+        Count = outra.Count;
+        CAtual = outra.CAtual;
+    }
+
     void PushFront(const T& arg)
     {
         No<T> *aponta = new No<T>(arg);
@@ -77,6 +86,11 @@ public:
         No<T> *aponta = Frente;
         var = Frente->Valor;
         Frente = Frente->Segue;
+        Atual = Frente;
+        if(Atual)
+            CAtual = 1;
+        else
+            CAtual = 0;
         delete aponta;
         Count--;
         return true;
@@ -89,12 +103,15 @@ public:
         {
             No<T> *aponta = Fundo;
             var = aponta->Valor;
-            Frente = Fundo = nullptr;
+            Frente = Fundo = Atual = nullptr;
             delete aponta;
             Count--;
+            CAtual = 0;
             return true;
         }
         var = Fundo->Valor;
+        Atual = Frente;
+        CAtual = 1;
         No<T> *aponta = Frente;
         while(aponta->Segue != Fundo) aponta = aponta->Segue;
         Fundo = aponta;
@@ -133,6 +150,19 @@ public:
         }
         var = Atual->Valor;
         return true;
+    }
+
+    void Clear()
+    {
+        Fundo = Atual = nullptr;
+        Count = CAtual = 0;
+        No <T> *aponta;
+        while(Frente)
+        {
+            aponta = Frente;
+            Frente = Frente->Segue;
+            delete aponta;
+        }
     }
 
     uint Length()
