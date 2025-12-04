@@ -60,6 +60,9 @@
  *      ->Hora de reestruturar pra parametrizar arquivos de comprimento fixo...
  *      ->Criar uma nova "classe" pra substituir "caderneta":
  *
+ *      @date       04/12/25    07:22
+ *      ->Simplificar a interface de determinação de comprimentos fixos
+ *
  *
  */
 #ifndef MAINWINDOW_H
